@@ -118,37 +118,43 @@ function getPasswordOptions() {
         if (tryAgain) {
           getPasswordOptions()
         } else {
-        // Exit the loop if user doesn't want to carry on
+          // Exit the loop if user doesn't want to carry on
           break
         }
       }
-    // Confirm box to select character type lowercase
-  } else if (key == 'lowercase') {
-    
-    if(passwordOptions.lowercase = confirm(`Need ${key} characters?`)){
-      passwordOptions.characterTypesSelected++ 
-    }
-    
-    // Confirm box to select character type uppercase
-  } else if (key == 'uppercase') {
-    if(passwordOptions.uppercase = confirm(`Need ${key} characters?`)){
-      passwordOptions.characterTypesSelected++ 
-    }
+      // Confirm box to select character type lowercase
+    } else if (key == 'lowercase') {
 
-    // Confirm box to select character type numbers
-  } else if (key == 'numeric') {
-    if(passwordOptions.numeric = confirm(`Need ${key} characters?`)){
-      passwordOptions.characterTypesSelected++ 
-    }
+      if (passwordOptions.lowercase = confirm(`Need ${key} characters?`)) {
+        passwordOptions.characterTypesSelected++
+      }
 
-    // Confirm box to select character type special
+      // Confirm box to select character type uppercase
+    } else if (key == 'uppercase') {
+      if (passwordOptions.uppercase = confirm(`Need ${key} characters?`)) {
+        passwordOptions.characterTypesSelected++
+      }
+
+      // Confirm box to select character type numbers
+    } else if (key == 'numeric') {
+      if (passwordOptions.numeric = confirm(`Need ${key} characters?`)) {
+        passwordOptions.characterTypesSelected++
+      }
+
+      // Confirm box to select character type special
     } else if (key == 'special') {
-      if(passwordOptions.special = confirm(`Need ${key} characters?`)){
-        passwordOptions.characterTypesSelected++ 
+      if (passwordOptions.special = confirm(`Need ${key} characters?`)) {
+        passwordOptions.characterTypesSelected++
       }
     }
     // Debugging
-    //console.log(`${key}: ${passwordOptions[key]}`);
+    console.log(`${key}: ${passwordOptions[key]}`);
+  }
+
+  if (passwordOptions.characterTypesSelected === 0) {
+    alert("Error: Please select at least one character type. Try again")
+    passwordOptions.characterTypesSelected = 0
+    getPasswordOptions()
   }
 }
 
@@ -161,6 +167,7 @@ function getRandom(arr) {
 function generatePassword() {
   passwordOptions.characterTypesSelected = 0
   getPasswordOptions()
+
 
 }
 
