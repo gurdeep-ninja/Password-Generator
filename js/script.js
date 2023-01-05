@@ -173,59 +173,76 @@ function generatePassword() {
 function generatePasswordCharacters() {
 
   // Debug code
-  passwordOptions.passwordLength = 12
-  passwordOptions.lowercase = true
-  passwordOptions.uppercase = true
-  passwordOptions.numeric = true
-  passwordOptions.special = true
-  passwordOptions.characterTypesSelected = 4
+  // passwordOptions.passwordLength = 12
+  // passwordOptions.lowercase = true
+  // passwordOptions.uppercase = true
+  // passwordOptions.numeric = true
+  // passwordOptions.special = true
+  // passwordOptions.characterTypesSelected = 4
 
+  // Store the password in a variable
   let password = ''
+  
+  // Storing the passwordSettings such as special characters, numeric, uppercase & lower case
+  // This is then used in a loop to ensure the password meets the requirements selected
   let passwordSettings = []
 
 
   // Loop through passwordOptions{} object and pick out character types selected
-  // Puts selected character types in a new array
+  // (puts selected character types in a new array)
   for (const key in passwordOptions) {
     // Debugging
 
     //console.log(`${key}: ${passwordOptions[key]}`);
 
+    // Since the passwordOptions character types keys are either true or false
+    // they are used in a secondary array 
     if (passwordOptions[key] === true) {
-
+      // Array.push item to array
       passwordSettings.push(key)
 
     }
 
   }
-  console.log(passwordSettings)
+  //console.log(passwordSettings)
 
-  //
+  // j is used to keep track of the character type we would like to use. This makes sure we
+  // have a very strong password (rather than relying on concatenating all the character type arrays together)
   let j = 0;
+  
+  // this is where we generate the password based on the length the user selected 
   for (let i = 0; i < passwordOptions.passwordLength; i++) {
+
+  // resets the count of j if it's reached the end of the passwordSettings array
     if (j == passwordSettings.length) {
       j = 0;
     }
-    switch (passwordSettings[j]) {
 
+    // Upon each iteration of i, we are ensuring each character is based on the character type settings
+    // this ensures we are atleast using each setting selected
+    switch (passwordSettings[j]) {
+      // pick a random lowercase character from array lower lowerCasedCharacters
       case 'lowercase':
         password += getRandom(lowerCasedCharacters)
         break
-
+// pick a random uppercase character from array lower upperCasedCharacters
       case 'uppercase':
         password += getRandom(upperCasedCharacters)
         break
-
+// pick a random numeric character from array lower numericCharacters
       case 'numeric':
         password += getRandom(numericCharacters)
         break
-
+// pick a random special character from array lower specialCharacters
       case 'special':
         password += getRandom(specialCharacters)
         break
     } j++
   }
-console.log(password)
+//console.log(password)
+
+// return the password once all the characters are generated.
+return password
 
 }
 
