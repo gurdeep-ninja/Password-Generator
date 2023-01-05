@@ -23,10 +23,10 @@ var specialCharacters = [
   '-',
   '_',
   '.'
-];
+]
 
 // Array of numeric characters to be included in password
-var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 // Array of lowercase characters to be included in password
 var lowerCasedCharacters = [
@@ -56,7 +56,7 @@ var lowerCasedCharacters = [
   'x',
   'y',
   'z'
-];
+]
 
 // Array of uppercase characters to be included in password
 var upperCasedCharacters = [
@@ -86,7 +86,9 @@ var upperCasedCharacters = [
   'X',
   'Y',
   'Z'
-];
+]
+
+let passwordLength = 0;
 
 let characterTypes = {
   lowercase: false,
@@ -97,8 +99,27 @@ let characterTypes = {
 
 // Function to prompt user for password options
 function getPasswordOptions() {
-  for (const key in characterTypes) {
-    console.log(`${key}: ${characterTypes[key]}`);
+
+  passwordLength = prompt("Choose password length (10 to 64 characters)")
+
+  if (passwordLength < 10 || passwordLength > 64) {
+
+    let tryAgain = confirm("Please pick a number between 10 and 64")
+
+    if (tryAgain) {
+
+      getPasswordOptions()
+
+      console.log(typeof passwordLength)
+
+      passwordLength = 0
+
+    }
+
+  } else {
+    for (const key in characterTypes) {
+      //console.log(`${key}: ${characterTypes[key]}`);
+    }
   }
 
 }
