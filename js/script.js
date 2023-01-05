@@ -101,8 +101,9 @@ let passwordOptions = {
 // Function to prompt user for password options
 function getPasswordOptions() {
 
-
+  // Loop through each property in the passwordOptions 
   for (const key in passwordOptions) {
+    // Prompt for selecting password length
     if (key == 'passwordLength') {
 
       // Prompt the user to select the length of the password
@@ -116,29 +117,38 @@ function getPasswordOptions() {
         // Confirmation prompt put into variable so user can gracefully exit the password selection process (instead of closing browser!)
         if (tryAgain) {
           getPasswordOptions()
+        } else {
+        // Exit the loop if user doesn't want to carry on
+          break
         }
       }
+    // Confirm box to select character type lowercase
+  } else if (key == 'lowercase') {
+    
+    if(passwordOptions.lowercase = confirm(`Need ${key} characters?`)){
+      passwordOptions.characterTypesSelected++ 
+    }
+    
+    // Confirm box to select character type uppercase
+  } else if (key == 'uppercase') {
+    if(passwordOptions.uppercase = confirm(`Need ${key} characters?`)){
+      passwordOptions.characterTypesSelected++ 
+    }
 
-    } else if (key == 'lowercase') {
+    // Confirm box to select character type numbers
+  } else if (key == 'numeric') {
+    if(passwordOptions.numeric = confirm(`Need ${key} characters?`)){
+      passwordOptions.characterTypesSelected++ 
+    }
 
-      if(passwordOptions.lowercase = confirm(`Need ${key} characters?`)){
-        passwordOptions.characterTypesSelected++ 
-      }
-
-    } else if (key == 'uppercase') {
-      if(passwordOptions.uppercase = confirm(`Need ${key} characters?`)){
-        passwordOptions.characterTypesSelected++ 
-      }
-    } else if (key == 'numeric') {
-      if(passwordOptions.numeric = confirm(`Need ${key} characters?`)){
-        passwordOptions.characterTypesSelected++ 
-      }
+    // Confirm box to select character type special
     } else if (key == 'special') {
       if(passwordOptions.special = confirm(`Need ${key} characters?`)){
         passwordOptions.characterTypesSelected++ 
       }
     }
-    console.log(`${key}: ${passwordOptions[key]}`);
+    // Debugging
+    //console.log(`${key}: ${passwordOptions[key]}`);
   }
 }
 
