@@ -151,9 +151,12 @@ function getPasswordOptions() {
     //console.log(`${key}: ${passwordOptions[key]}`);
   }
 
+  // If the user hasn't selected any character types, prompt them to pick atleast 1
   if (passwordOptions.characterTypesSelected === 0) {
     alert("Error: Please select at least one character type. Try again")
+    // reset passwordOptions settings
     passwordOptions.characterTypesSelected = 0
+    // re-run this function to get options
     getPasswordOptions()
   }
 }
@@ -165,9 +168,18 @@ function getRandom(arr) {
 
 // Function to generate password with user input
 function generatePassword() {
-  // passwordOptions.characterTypesSelected = 0
-  // getPasswordOptions()
-  generatePasswordCharacters()
+
+  // reset passwordOptions settings
+  passwordOptions.characterTypesSelected = 0
+  // ask the user to select password options
+  getPasswordOptions()
+
+  // generate the password based on user options
+  let password = generatePasswordCharacters()
+  // returns the password to writePassword() function
+  if (password !== '') {
+    return password
+  }
 }
 
 function generatePasswordCharacters() {
@@ -182,7 +194,7 @@ function generatePasswordCharacters() {
 
   // Store the password in a variable
   let password = ''
-  
+
   // Storing the passwordSettings such as special characters, numeric, uppercase & lower case
   // This is then used in a loop to ensure the password meets the requirements selected
   let passwordSettings = []
@@ -209,11 +221,11 @@ function generatePasswordCharacters() {
   // j is used to keep track of the character type we would like to use. This makes sure we
   // have a very strong password (rather than relying on concatenating all the character type arrays together)
   let j = 0;
-  
+
   // this is where we generate the password based on the length the user selected 
   for (let i = 0; i < passwordOptions.passwordLength; i++) {
 
-  // resets the count of j if it's reached the end of the passwordSettings array
+    // resets the count of j if it's reached the end of the passwordSettings array
     if (j == passwordSettings.length) {
       j = 0;
     }
@@ -225,24 +237,24 @@ function generatePasswordCharacters() {
       case 'lowercase':
         password += getRandom(lowerCasedCharacters)
         break
-// pick a random uppercase character from array lower upperCasedCharacters
+      // pick a random uppercase character from array lower upperCasedCharacters
       case 'uppercase':
         password += getRandom(upperCasedCharacters)
         break
-// pick a random numeric character from array lower numericCharacters
+      // pick a random numeric character from array lower numericCharacters
       case 'numeric':
         password += getRandom(numericCharacters)
         break
-// pick a random special character from array lower specialCharacters
+      // pick a random special character from array lower specialCharacters
       case 'special':
         password += getRandom(specialCharacters)
         break
     } j++
   }
-//console.log(password)
+  //console.log(password)
 
-// return the password once all the characters are generated.
-return password
+  // return the password once all the characters are generated.
+  return password
 
 }
 
