@@ -170,7 +170,7 @@ function generatePassword() {
   generatePasswordCharacters()
 }
 
-function generatePasswordCharacters(){
+function generatePasswordCharacters() {
 
   // Debug code
   passwordOptions.passwordLength = 12
@@ -179,10 +179,54 @@ function generatePasswordCharacters(){
   passwordOptions.numeric = true
   passwordOptions.special = true
   passwordOptions.characterTypesSelected = 4
+
+  let password = ''
+  let passwordSettings = []
+
+
+  // Loop through passwordOptions{} object and pick out character types selected
+  // Puts selected character types in a new array
   for (const key in passwordOptions) {
     // Debugging
-    console.log(`${key}: ${passwordOptions[key]}`);    
+
+    //console.log(`${key}: ${passwordOptions[key]}`);
+
+    if (passwordOptions[key] === true) {
+
+      passwordSettings.push(key)
+
+    }
+
   }
+  console.log(passwordSettings)
+
+  //
+  let j = 0;
+  for (let i = 0; i < passwordOptions.passwordLength; i++) {
+    if (j == passwordSettings.length) {
+      j = 0;
+    }
+    switch (passwordSettings[j]) {
+
+      case 'lowercase':
+        password += getRandom(lowerCasedCharacters)
+        break
+
+      case 'uppercase':
+        password += getRandom(upperCasedCharacters)
+        break
+
+      case 'numeric':
+        password += getRandom(numericCharacters)
+        break
+
+      case 'special':
+        password += getRandom(specialCharacters)
+        break
+    } j++
+  }
+console.log(password)
+
 }
 
 // Get references to the #generate element
