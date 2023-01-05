@@ -88,18 +88,29 @@ var upperCasedCharacters = [
   'Z'
 ];
 
+let characterTypes = {
+  lowercase: false,
+  uppercase: false,
+  numeric: false,
+  special: false
+}
+
 // Function to prompt user for password options
 function getPasswordOptions() {
+  for (const key in characterTypes) {
+    console.log(`${key}: ${characterTypes[key]}`);
+  }
 
 }
 
 // Function for getting a random element from an array
 function getRandom(arr) {
-
+  return arr[Math.floor(Math.random() * arr.length)]
 }
 
 // Function to generate password with user input
 function generatePassword() {
+  getPasswordOptions()
 
 }
 
