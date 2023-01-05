@@ -94,7 +94,8 @@ let passwordOptions = {
   lowercase: false,
   uppercase: false,
   numeric: false,
-  special: false
+  special: false,
+  characterTypesSelected: 0
 }
 
 // Function to prompt user for password options
@@ -119,13 +120,23 @@ function getPasswordOptions() {
       }
 
     } else if (key == 'lowercase') {
-      passwordOptions.lowercase = confirm(`Need ${key} characters?`)
+
+      if(passwordOptions.lowercase = confirm(`Need ${key} characters?`)){
+        passwordOptions.characterTypesSelected++ 
+      }
+
     } else if (key == 'uppercase') {
-      passwordOptions.uppercase = confirm(`Need ${key} characters?`)
+      if(passwordOptions.uppercase = confirm(`Need ${key} characters?`)){
+        passwordOptions.characterTypesSelected++ 
+      }
     } else if (key == 'numeric') {
-      passwordOptions.numeric = confirm(`Need ${key} characters?`)
+      if(passwordOptions.numeric = confirm(`Need ${key} characters?`)){
+        passwordOptions.characterTypesSelected++ 
+      }
     } else if (key == 'special') {
-      passwordOptions.special = confirm(`Need ${key} characters?`)
+      if(passwordOptions.special = confirm(`Need ${key} characters?`)){
+        passwordOptions.characterTypesSelected++ 
+      }
     }
     console.log(`${key}: ${passwordOptions[key]}`);
   }
@@ -138,6 +149,7 @@ function getRandom(arr) {
 
 // Function to generate password with user input
 function generatePassword() {
+  passwordOptions.characterTypesSelected = 0
   getPasswordOptions()
 
 }
