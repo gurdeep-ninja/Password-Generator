@@ -88,10 +88,9 @@ var upperCasedCharacters = [
   'Z'
 ]
 
-let passwordLength = 0;
-
+// variable (object) to store the user options for password length & strength
 let passwordOptions = {
-  length: 0,
+  passwordLength: 0,
   lowercase: false,
   uppercase: false,
   numeric: false,
@@ -101,26 +100,35 @@ let passwordOptions = {
 // Function to prompt user for password options
 function getPasswordOptions() {
 
-  passwordLength = parseInt(prompt("Choose password length (10 to 64 characters)"))
-  if (passwordLength < 10 || passwordLength > 64 || isNaN(passwordLength)) {
 
-    let tryAgain = confirm("Please pick a number between 10 and 64")
+  for (const key in passwordOptions) {
+    if (key == 'passwordLength') {
 
-    if (tryAgain) {
+      // Prompt the user to select the length of the password
+      passwordOptions.passwordLength = parseInt(prompt("Choose password length (10 to 64 characters)"))
 
-      getPasswordOptions()
-      passwordLength = ''
-      //console.log(typeof passwordLength)
+      // If the password length does not meet criteria, re-prompt the user
+      if (passwordOptions.passwordLength < 10 || passwordOptions.passwordLength > 64 || isNaN(passwordOptions.passwordLength)) {
 
+        let tryAgain = confirm("Please pick a number between 10 and 64")
 
+        // Confirmation prompt put into variable so user can gracefully exit the password selection process (instead of closing browser!)
+        if (tryAgain) {
+          getPasswordOptions()
+        }
+      }
+
+    } else if (key == 'lowercase') {
+      passwordOptions.lowercase = confirm(`Need ${key} characters?`)
+    } else if (key == 'uppercase') {
+      passwordOptions.uppercase = confirm(`Need ${key} characters?`)
+    } else if (key == 'numeric') {
+      passwordOptions.numeric = confirm(`Need ${key} characters?`)
+    } else if (key == 'special') {
+      passwordOptions.special = confirm(`Need ${key} characters?`)
     }
-
-  } else {
-    for (const key in passwordOptions) {
-      //console.log(`${key}: ${characterTypes[key]}`);
-    }
+    console.log(`${key}: ${passwordOptions[key]}`);
   }
-
 }
 
 // Function for getting a random element from an array
