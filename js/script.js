@@ -90,7 +90,8 @@ var upperCasedCharacters = [
 
 let passwordLength = 0;
 
-let characterTypes = {
+let passwordOptions = {
+  length: 0,
   lowercase: false,
   uppercase: false,
   numeric: false,
@@ -100,24 +101,22 @@ let characterTypes = {
 // Function to prompt user for password options
 function getPasswordOptions() {
 
-  passwordLength = prompt("Choose password length (10 to 64 characters)")
-
-  if (passwordLength < 10 || passwordLength > 64) {
+  passwordLength = parseInt(prompt("Choose password length (10 to 64 characters)"))
+  if (passwordLength < 10 || passwordLength > 64 || isNaN(passwordLength)) {
 
     let tryAgain = confirm("Please pick a number between 10 and 64")
 
     if (tryAgain) {
 
       getPasswordOptions()
+      passwordLength = ''
+      //console.log(typeof passwordLength)
 
-      console.log(typeof passwordLength)
-
-      passwordLength = 0
 
     }
 
   } else {
-    for (const key in characterTypes) {
+    for (const key in passwordOptions) {
       //console.log(`${key}: ${characterTypes[key]}`);
     }
   }
