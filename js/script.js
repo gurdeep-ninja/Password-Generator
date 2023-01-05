@@ -148,7 +148,7 @@ function getPasswordOptions() {
       }
     }
     // Debugging
-    console.log(`${key}: ${passwordOptions[key]}`);
+    //console.log(`${key}: ${passwordOptions[key]}`);
   }
 
   if (passwordOptions.characterTypesSelected === 0) {
@@ -165,10 +165,24 @@ function getRandom(arr) {
 
 // Function to generate password with user input
 function generatePassword() {
-  passwordOptions.characterTypesSelected = 0
-  getPasswordOptions()
+  // passwordOptions.characterTypesSelected = 0
+  // getPasswordOptions()
+  generatePasswordCharacters()
+}
 
+function generatePasswordCharacters(){
 
+  // Debug code
+  passwordOptions.passwordLength = 12
+  passwordOptions.lowercase = true
+  passwordOptions.uppercase = true
+  passwordOptions.numeric = true
+  passwordOptions.special = true
+  passwordOptions.characterTypesSelected = 4
+  for (const key in passwordOptions) {
+    // Debugging
+    console.log(`${key}: ${passwordOptions[key]}`);    
+  }
 }
 
 // Get references to the #generate element
