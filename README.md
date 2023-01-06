@@ -2,7 +2,7 @@
 
 ## Description
 
-This application will generate a password for the user when they click the "Generate Password" button. The user is prompted to enter a password length between 10 & 64 characters. Once the user has selected the number of characters, they are asked if they would their password to contain  uppercase, lowercase, numeric or special characters.
+This application will generate a password for the user when they click the "Generate Password" button. The user is prompted to enter a password length between 10 & 64 characters. Once the user has selected the number of characters, they are asked if they want their password to contain  uppercase, lowercase, numeric or special characters.
 
 Once the user has selected their options, the application will update on-screen the newly generated password.
 
