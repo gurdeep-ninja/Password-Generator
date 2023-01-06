@@ -145,11 +145,11 @@ function getPasswordOptions() {
 
   if (passwordOptions.passwordLength < 10 || passwordOptions.passwordLength > 64 || isNaN(passwordOptions.passwordLength)) {
 
-    errorLog.push("Error: please pick a number between 10 and 64")
+    errorLog.push("Please pick a number between 10 and 64.")
 
   }
   if (passwordOptions.characterTypesSelected == 0) {
-    errorLog.push("Error: Please select at least one character type.")
+    errorLog.push("Please select at least one character type.")
   }
 
   if (errorLog.length >= 1) {
@@ -159,16 +159,23 @@ function getPasswordOptions() {
 
 }
 
+// Function to display errors to user
+// array of errors passed
 function displayErrors(errorLog){
 
+  // String use to concatenate each error message as 1 for the alert box
   let errorMessages = ''
-  errorLog.forEach(function(element){
-    errorMessages += ' ' + element
+  //forEach loop (passing element and array index used in message)
+  errorLog.forEach(function(element, i){
+    // Error messages are concatenated with the number of errors
+    errorMessages += "Error " + i + ": " + element + "\n" 
 
   })
+  // Alert box to prompt user of errors with password options
   alert(errorMessages)
 }
 
+// A function to reset all the password options whenever the user has to generate a new password
 function resetPasswordOptions() {
   passwordOptions.passwordLength = 0
   passwordOptions.lowercase = false
@@ -191,15 +198,7 @@ function generatePassword() {
   // ask the user to select password options
   getPasswordOptions()
 
-  // generate the password based on user options
-  let password = generatePasswordCharacters()
-  // returns the password to writePassword() function
-  if (password !== '') {
-    return password
-  }
-}
-
-function generatePasswordCharacters() {
+///////////////////////////////////
 
   // Debug code
   // passwordOptions.passwordLength = 12
@@ -271,8 +270,14 @@ function generatePasswordCharacters() {
   //console.log(password)
 
   // return the password once all the characters are generated.
-  return password
 
+
+
+  /////////////////////////////
+  // returns the password to writePassword() function
+  if (password !== '') {
+    return password
+  }
 }
 
 // Get references to the #generate element
