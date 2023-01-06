@@ -106,8 +106,9 @@ function getPasswordOptions() {
     // Prompt for selecting password length
     if (key == 'passwordLength') {
 
-      // Prompt the user to select the length of the password
-      passwordOptions.passwordLength = parseInt(prompt("Choose password length (10 to 64 characters)"))
+      while (passwordOptions.passwordLength < 10 || passwordOptions.passwordLength > 64 || isNaN(passwordOptions.passwordLength)) {
+        passwordOptions.passwordLength = parseInt(prompt("Enter password length (between 10 & 64 characters"))
+      }
 
       // Confirm box to select character type lowercase
     } else if (key == 'lowercase') {
@@ -134,7 +135,7 @@ function getPasswordOptions() {
         passwordOptions.characterTypesSelected++
       }
     }
-    // Debugging
+    // Debugginggit
     //console.log(`${key}: ${passwordOptions[key]}`);
     //console.log(passwordOptions.characterTypesSelected)
   }
@@ -143,36 +144,11 @@ function getPasswordOptions() {
   // Keep track of any errors with the password options not selected properly by the user
   let errorLog = []
 
-  if (passwordOptions.passwordLength < 10 || passwordOptions.passwordLength > 64 || isNaN(passwordOptions.passwordLength)) {
-
-    errorLog.push("Please pick a number between 10 and 64.")
-
-  }
   if (passwordOptions.characterTypesSelected == 0) {
-    errorLog.push("Please select at least one character type.")
+    alert("Error! Please select at least one character type.")
+    generatePassword()
   }
 
-  if (errorLog.length >= 1) {
-    resetPasswordOptions()
-    displayErrors(errorLog)
-  } 
-
-}
-
-// Function to display errors to user
-// array of errors passed
-function displayErrors(errorLog){
-
-  // String use to concatenate each error message as 1 for the alert box
-  let errorMessages = ''
-  //forEach loop (passing element and array index used in message)
-  errorLog.forEach(function(element, i){
-    // Error messages are concatenated with the number of errors
-    errorMessages += "Error " + i + ": " + element + "\n" 
-
-  })
-  // Alert box to prompt user of errors with password options
-  alert(errorMessages)
 }
 
 // A function to reset all the password options whenever the user has to generate a new password
@@ -198,7 +174,7 @@ function generatePassword() {
   // ask the user to select password options
   getPasswordOptions()
 
-///////////////////////////////////
+  ///////////////////////////////////
 
   // Debug code
   // passwordOptions.passwordLength = 12
