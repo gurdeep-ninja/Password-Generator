@@ -104,48 +104,50 @@ function getPasswordOptions() {
   // Loop through each property in the passwordOptions 
   for (const key in passwordOptions) {
     // Prompt for selecting password length
-    if (key == 'passwordLength') {
 
-      while (passwordOptions.passwordLength < 10 || passwordOptions.passwordLength > 64 || isNaN(passwordOptions.passwordLength)) {
-        passwordOptions.passwordLength = parseInt(prompt("Enter password length (between 10 & 64 characters"))
-      }
+    switch (key) {
+      case 'passwordLength':
+        while (passwordOptions.passwordLength < 10 || passwordOptions.passwordLength > 64 || isNaN(passwordOptions.passwordLength)) {
+          passwordOptions.passwordLength = parseInt(prompt("Enter password length (between 10 & 64 characters"))
+        }
+        break;
 
-      // Confirm box to select character type lowercase
-    } else if (key == 'lowercase') {
+      case 'lowercase':
+        if (passwordOptions.lowercase = confirm(`Need ${key} characters?`)) {
+          passwordOptions.characterTypesSelected++
+        }
+        break;
 
-      if (passwordOptions.lowercase = confirm(`Need ${key} characters?`)) {
-        passwordOptions.characterTypesSelected++
-      }
+      case 'uppercase':
+        if (passwordOptions.uppercase = confirm(`Need ${key} characters?`)) {
+          passwordOptions.characterTypesSelected++
+        }
+        break;
 
-      // Confirm box to select character type uppercase
-    } else if (key == 'uppercase') {
-      if (passwordOptions.uppercase = confirm(`Need ${key} characters?`)) {
-        passwordOptions.characterTypesSelected++
-      }
+      case 'numeric':
+        if (passwordOptions.numeric = confirm(`Need ${key} characters?`)) {
+          passwordOptions.characterTypesSelected++
+        }
+        break;
 
-      // Confirm box to select character type numbers
-    } else if (key == 'numeric') {
-      if (passwordOptions.numeric = confirm(`Need ${key} characters?`)) {
-        passwordOptions.characterTypesSelected++
-      }
-
-      // Confirm box to select character type special
-    } else if (key == 'special') {
-      if (passwordOptions.special = confirm(`Need ${key} characters?`)) {
-        passwordOptions.characterTypesSelected++
-      }
+      case 'special':
+        if (passwordOptions.special = confirm(`Need ${key} characters?`)) {
+          passwordOptions.characterTypesSelected++
+        }
+        break;
     }
-    // Debugginggit
+
+    // Debugging
     //console.log(`${key}: ${passwordOptions[key]}`);
     //console.log(passwordOptions.characterTypesSelected)
   }
 
+  // Check if user has selected at least 1 character type for the password generation
 
-  // Keep track of any errors with the password options not selected properly by the user
-  let errorLog = []
-
-  if (passwordOptions.characterTypesSelected == 0) {
+  if (passwordOptions.characterTypesSelected === 0) {
+    // Alert the user they need to select at least one character type
     alert("Error! Please select at least one character type.")
+    // Rerun password generation
     generatePassword()
   }
 
@@ -174,8 +176,6 @@ function generatePassword() {
   // ask the user to select password options
   getPasswordOptions()
 
-  ///////////////////////////////////
-
   // Debug code
   // passwordOptions.passwordLength = 12
   // passwordOptions.lowercase = true
@@ -191,16 +191,15 @@ function generatePassword() {
   // This is then used in a loop to ensure the password meets the requirements selected
   let passwordSettings = []
 
-
   // Loop through passwordOptions{} object and pick out character types selected
   // (puts selected character types in a new array)
   for (const key in passwordOptions) {
     // Debugging
-
     //console.log(`${key}: ${passwordOptions[key]}`);
 
     // Since the passwordOptions character types keys are either true or false
-    // they are used in a secondary array 
+    // they are used in a secondary array
+
     if (passwordOptions[key] === true) {
       // Array.push item to array
       passwordSettings.push(key)
@@ -210,21 +209,16 @@ function generatePassword() {
   }
   //console.log(passwordSettings)
 
-  // j is used to keep track of the character type we would like to use. This makes sure we
-  // have a very strong password (rather than relying on concatenating all the character type arrays together)
-  let j = 0;
-
   // this is where we generate the password based on the length the user selected 
   for (let i = 0; i < passwordOptions.passwordLength; i++) {
 
-    // resets the count of j if it's reached the end of the passwordSettings array
-    if (j == passwordSettings.length) {
-      j = 0;
-    }
-
+ 
     // Upon each iteration of i, we are ensuring each character is based on the character type settings
-    // this ensures we are atleast using each setting selected
-    switch (passwordSettings[j]) {
+    // this ensures we are at least using each setting selected
+    /* have passed a random key for the switch statement - this was better than previous implementation as
+       characters in password appear more random. 
+    */
+    switch (getRandom(passwordSettings)) {
       // pick a random lowercase character from array lower lowerCasedCharacters
       case 'lowercase':
         password += getRandom(lowerCasedCharacters)
@@ -241,15 +235,11 @@ function generatePassword() {
       case 'special':
         password += getRandom(specialCharacters)
         break
-    } j++
+    }
   }
+
   //console.log(password)
-
   // return the password once all the characters are generated.
-
-
-
-  /////////////////////////////
   // returns the password to writePassword() function
   if (password !== '') {
     return password
