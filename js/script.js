@@ -109,19 +109,6 @@ function getPasswordOptions() {
       // Prompt the user to select the length of the password
       passwordOptions.passwordLength = parseInt(prompt("Choose password length (10 to 64 characters)"))
 
-      // If the password length does not meet criteria, re-prompt the user
-      if (passwordOptions.passwordLength < 10 || passwordOptions.passwordLength > 64 || isNaN(passwordOptions.passwordLength)) {
-
-        let tryAgain = confirm("Please pick a number between 10 and 64")
-
-        // Confirmation prompt put into variable so user can gracefully exit the password selection process (instead of closing browser!)
-        if (tryAgain) {
-          getPasswordOptions()
-        } else {
-          // Exit the loop if user doesn't want to carry on
-          break
-        }
-      }
       // Confirm box to select character type lowercase
     } else if (key == 'lowercase') {
 
@@ -149,16 +136,46 @@ function getPasswordOptions() {
     }
     // Debugging
     //console.log(`${key}: ${passwordOptions[key]}`);
+    //console.log(passwordOptions.characterTypesSelected)
   }
 
-  // If the user hasn't selected any character types, prompt them to pick atleast 1
-  if (passwordOptions.characterTypesSelected === 0) {
-    alert("Error: Please select at least one character type. Try again")
-    // reset passwordOptions settings
-    passwordOptions.characterTypesSelected = 0
-    // re-run this function to get options
-    getPasswordOptions()
+
+  // Keep track of any errors with the password options not selected properly by the user
+  let errorLog = []
+
+  if (passwordOptions.passwordLength < 10 || passwordOptions.passwordLength > 64 || isNaN(passwordOptions.passwordLength)) {
+
+    errorLog.push("Error: please pick a number between 10 and 64")
+
   }
+  if (passwordOptions.characterTypesSelected == 0) {
+    errorLog.push("Error: Please select at least one character type.")
+  }
+
+  if (errorLog.length >= 1) {
+    resetPasswordOptions()
+    displayErrors(errorLog)
+  } 
+
+}
+
+function displayErrors(errorLog){
+
+  let errorMessages = ''
+  errorLog.forEach(function(element){
+    errorMessages += ' ' + element
+
+  })
+  alert(errorMessages)
+}
+
+function resetPasswordOptions() {
+  passwordOptions.passwordLength = 0
+  passwordOptions.lowercase = false
+  passwordOptions.uppercase = false
+  passwordOptions.numeric = false
+  passwordOptions.special = false
+  passwordOptions.characterTypesSelected = 0
 }
 
 // Function for getting a random element from an array
@@ -170,7 +187,7 @@ function getRandom(arr) {
 function generatePassword() {
 
   // reset passwordOptions settings
-  passwordOptions.characterTypesSelected = 0
+  resetPasswordOptions()
   // ask the user to select password options
   getPasswordOptions()
 
@@ -266,7 +283,10 @@ function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector('#password');
 
-  passwordText.value = password;
+  // do not update the passwordText input box if the password is undefined
+  if (password !== undefined) {
+    passwordText.value = password;
+  }
 }
 
 // Add event listener to generate button
