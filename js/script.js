@@ -104,34 +104,45 @@ function getPasswordOptions() {
   // Loop through each property in the passwordOptions 
   for (const key in passwordOptions) {
     // Prompt for selecting password length
-
+    // Switch statement
     switch (key) {
+      // Prompt for getting password length and storing in object property passwordOptions.passwordLength
       case 'passwordLength':
+        // Keep displaying password length prompt until a valid input is selected
         while (passwordOptions.passwordLength < 10 || passwordOptions.passwordLength > 64 || isNaN(passwordOptions.passwordLength)) {
+          // Prompt the user to select the length of their desired password & store in object property passwordOptions.passwordLength
           passwordOptions.passwordLength = parseInt(prompt("Enter password length (between 10 & 64 characters"))
         }
         break;
 
+      // Prompt for getting option for lowercase and storing in object property passwordOptions.lowercase
       case 'lowercase':
         if (passwordOptions.lowercase = confirm(`Need ${key} characters?`)) {
+          // if lower selection true, increment characterTypesSelected variable
           passwordOptions.characterTypesSelected++
         }
         break;
 
+      // Prompt for getting option for uppercase and storing in object property passwordOptions.uppercase
       case 'uppercase':
         if (passwordOptions.uppercase = confirm(`Need ${key} characters?`)) {
+          // if lower selection true, increment characterTypesSelected variable
           passwordOptions.characterTypesSelected++
         }
         break;
 
+      // Prompt for getting option for numeric and storing in object property passwordOptions.numeric
       case 'numeric':
         if (passwordOptions.numeric = confirm(`Need ${key} characters?`)) {
+          // if lower selection true, increment characterTypesSelected variable
           passwordOptions.characterTypesSelected++
         }
         break;
 
+      // Prompt for getting option for special and storing in object property passwordOptions.special
       case 'special':
         if (passwordOptions.special = confirm(`Need ${key} characters?`)) {
+          // if lower selection true, increment characterTypesSelected variable
           passwordOptions.characterTypesSelected++
         }
         break;
@@ -143,7 +154,6 @@ function getPasswordOptions() {
   }
 
   // Check if user has selected at least 1 character type for the password generation
-
   if (passwordOptions.characterTypesSelected === 0) {
     // Alert the user they need to select at least one character type
     alert("Error! Please select at least one character type.")
@@ -165,6 +175,8 @@ function resetPasswordOptions() {
 
 // Function for getting a random element from an array
 function getRandom(arr) {
+  // returns a random index from the array
+  // floor is used to round down to a whole number
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
@@ -212,7 +224,7 @@ function generatePassword() {
   // this is where we generate the password based on the length the user selected 
   for (let i = 0; i < passwordOptions.passwordLength; i++) {
 
- 
+
     // Upon each iteration of i, we are ensuring each character is based on the character type settings
     // this ensures we are at least using each setting selected
     /* have passed a random key for the switch statement - this was better than previous implementation as
